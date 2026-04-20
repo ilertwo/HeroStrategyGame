@@ -1,0 +1,15 @@
+[gd_scene format=3 uid="uid://dwjcxnvajx2yo"]
+
+[ext_resource type="PackedScene" uid="uid://b3gt20wqmgmkf" path="res://Scenes/UI/HeroStatsPanel.tscn" id="1_idj7w"]
+[ext_resource type="PackedScene" uid="uid://d3spmpj88sqi5" path="res://Scenes/Hero.tscn" id="2_kln2b"]
+
+[node name="Main" type="Node2D" unique_id=1692002326]
+
+[node name="HeroStatsPanel" parent="." unique_id=1056575048 instance=ExtResource("1_idj7w")]
+offset_left = 250.0
+offset_top = 440.0
+offset_right = 250.0
+offset_bottom = 440.0
+
+[node name="Hero" parent="." unique_id=139375110 instance=ExtResource("2_kln2b")]
+position = Vector2(313, 169)
