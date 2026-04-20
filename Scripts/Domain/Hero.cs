@@ -5,7 +5,6 @@ public partial class Hero : CharacterBody2D
 {
 	[Export] public float Speed = 200.0f;
 	
-	// Патерн Observer: Подія, яку буде слухати UI
 	[Signal] public delegate void HealthChangedEventHandler(int newHealth);
 
 	private int _health = 100;
@@ -15,20 +14,31 @@ public partial class Hero : CharacterBody2D
 		set 
 		{
 			_health = value;
-			EmitSignal(SignalName.HealthChanged, _health); // Сповіщаємо підписників
+			EmitSignal(SignalName.HealthChanged, _health);
 		}
 	}
 
-	private IWeapon _currentWeapon;
+	private IFactoryWeapon _equippedWeapon; 
+	private IArmor _equippedArmor;          
+	private IWeapon _shootingLogic;
 
-	// Патерн State (дуже спрощена версія для керування станами анімації/логіки)
+	// Патерн State
 	private enum HeroState { Idle, Moving, Shooting }
 	private HeroState _currentState = HeroState.Idle;
 
 	public override void _Ready()
 	{
 		AddToGroup("Player");
-		_currentWeapon = new BasicTear(); // Стартова зброя
+
+		IEquipmentFactory developmentBranch = new MagicDevelopmentFactory(); 
+		
+		_equippedWeapon = developmentBranch.CreateWeapon();
+		_equippedArmor = developmentBranch.CreateArmor();
+
+		_equippedWeapon.Attack();
+		_equippedArmor.Protect();
+
+		_shootingLogic = new BasicGun();
 	}
 
 	public override void _PhysicsProcess(double delta)
@@ -39,17 +49,19 @@ public partial class Hero : CharacterBody2D
 
 	private void HandleMovement()
 	{
-		Vector2 inputDir = Input.GetVector("ui_left", "ui_right", "ui_up", "ui_down");
+		Vector2 inputDir = Input.GetVector("move_left", "move_right", "move_up", "move_down");
+		
 		Velocity = inputDir * Speed;
 		MoveAndSlide();
 
-		// Зміна стану
-		_currentState = inputDir != Vector2.Zero ? HeroState.Moving : HeroState.Idle;
+		if (inputDir != Vector2.Zero) 
+			_currentState = HeroState.Moving;
+		else if (_currentState != HeroState.Shooting) 
+			_currentState = HeroState.Idle;
 	}
 
 	private void HandleShooting()
 	{
-		// Стрільба стрілочками (як в Isaac)
 		Vector2 shootDir = Vector2.Zero;
 		if (Input.IsActionJustPressed("shoot_up")) shootDir = Vector2.Up;
 		if (Input.IsActionJustPressed("shoot_down")) shootDir = Vector2.Down;
@@ -59,14 +71,19 @@ public partial class Hero : CharacterBody2D
 		if (shootDir != Vector2.Zero)
 		{
 			_currentState = HeroState.Shooting;
-			_currentWeapon.Shoot(this, shootDir);
+			
+			_shootingLogic.Shoot(this, shootDir);
+
+			if (HasNode("AnimationPlayer"))
+			{
+				GetNode<AnimationPlayer>("AnimationPlayer").Play("shoot");
+			}
 		}
 	}
 
-	// Виклик цієї функції для тестування Декоратора (наприклад, при піднятті предмета)
 	public void UpgradeWeapon()
 	{
-		_currentWeapon = new FireTearDecorator(_currentWeapon);
-		GD.Print("Зброю покращено!");
+		_shootingLogic = new FireBulletDecorator(_shootingLogic);
+		GD.Print("Зброю покращено: тепер кулі вогняні!");
 	}
 }

@@ -1,23 +1,32 @@
 using Godot;
 using System;
 
-// Базовий компонент
 public interface IWeapon
 {
 	void Shoot(Node2D startPoint, Vector2 direction);
 }
 
-// Конкретний компонент (Базова стрільба героя)
-public class BasicTear : IWeapon
+public class BasicGun : IWeapon
 {
+	private PackedScene _bulletScene;
+
+	public BasicGun()
+	{
+		_bulletScene = GD.Load<PackedScene>("res://Scenes/Bullet.tscn");
+	}
+
 	public void Shoot(Node2D startPoint, Vector2 direction)
 	{
-		GD.Print($"Стріляю звичайною сльозою в напрямку {direction}");
-		// Тут логіка інстанціювання сцени кулі в Godot
+		if (_bulletScene.Instantiate() is Bullet bullet)
+		{
+			bullet.Direction = direction;
+			bullet.GlobalPosition = startPoint.GlobalPosition;
+			
+			startPoint.GetTree().Root.AddChild(bullet);
+		}
 	}
 }
 
-// Базовий декоратор
 public abstract class WeaponDecorator : IWeapon
 {
 	protected IWeapon _wrappedWeapon;
@@ -33,14 +42,13 @@ public abstract class WeaponDecorator : IWeapon
 	}
 }
 
-// Конкретний декоратор (Вогняні сльози)
-public class FireTearDecorator : WeaponDecorator
+public class FireBulletDecorator : WeaponDecorator
 {
-	public FireTearDecorator(IWeapon weapon) : base(weapon) { }
+	public FireBulletDecorator(IWeapon weapon) : base(weapon) { }
 
 	public override void Shoot(Node2D startPoint, Vector2 direction)
 	{
 		base.Shoot(startPoint, direction);
-		GD.Print("ЕФЕКТ: Сльоза підпалює ворога!");
+		GD.Print("ЕФЕКТ: Куля підпалює ворога!");
 	}
 }

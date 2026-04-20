@@ -3,7 +3,7 @@ using System;
 
 public partial class HeroStatsController : Control
 {
-	[Export] public NodePath HeroPath; // Шлях до ноди Героя в інспекторі
+	[Export] public NodePath HeroPath; 
 	private Hero _hero;
 
 	public override void _Ready()
@@ -11,10 +11,8 @@ public partial class HeroStatsController : Control
 		if (HeroPath != null)
 		{
 			_hero = GetNode<Hero>(HeroPath);
-			// Підписуємось на подію (Observer Pattern)
 			_hero.HealthChanged += OnHeroHealthChanged;
 			
-			// Встановлюємо початкове значення
 			GetNode<Label>("Label").Text = $"HP: {_hero.Health}";
 		}
 	}

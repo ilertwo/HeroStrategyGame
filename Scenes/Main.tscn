@@ -2,6 +2,10 @@
 
 [ext_resource type="PackedScene" uid="uid://b3gt20wqmgmkf" path="res://Scenes/UI/HeroStatsPanel.tscn" id="1_idj7w"]
 [ext_resource type="PackedScene" uid="uid://d3spmpj88sqi5" path="res://Scenes/Hero.tscn" id="2_kln2b"]
+[ext_resource type="Texture2D" uid="uid://ohvke8olydfk" path="res://Assets/Arena.png" id="3_kln2b"]
+[ext_resource type="PackedScene" uid="uid://bshqxxbihtq1m" path="res://Scenes/UI/Wall.tscn" id="4_rgh2o"]
+[ext_resource type="PackedScene" uid="uid://dv77qi5qwc2xf" path="res://Scenes/Enemy.tscn" id="5_pbw6q"]
+[ext_resource type="Script" uid="uid://k2ccfaoywt4e" path="res://Scripts/Core/EnemySpawner.cs" id="6_v1gob"]
 
 [node name="Main" type="Node2D" unique_id=1692002326]
 
@@ -11,5 +15,23 @@ offset_top = 440.0
 offset_right = 250.0
 offset_bottom = 440.0
 
+[node name="Arena" type="Sprite2D" parent="." unique_id=2125426438]
+light_mask = 512
+visibility_layer = 512
+position = Vector2(575.49994, 324.5)
+scale = Vector2(2.4531913, 1.380851)
+texture = ExtResource("3_kln2b")
+
 [node name="Hero" parent="." unique_id=139375110 instance=ExtResource("2_kln2b")]
-position = Vector2(313, 169)
+position = Vector2(547, 330)
+
+[node name="Wall" parent="." unique_id=2000277991 instance=ExtResource("4_rgh2o")]
+position = Vector2(-1, -1)
+
+[node name="Enemy" parent="." unique_id=944012939 instance=ExtResource("5_pbw6q")]
+visible = false
+position = Vector2(-85, 56)
+
+[node name="Spawner" type="Node2D" parent="." unique_id=1390772905 node_paths=PackedStringArray("PrototypeEnemy")]
+script = ExtResource("6_v1gob")
+PrototypeEnemy = NodePath("../Enemy")

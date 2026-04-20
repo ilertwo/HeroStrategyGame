@@ -8,7 +8,7 @@ public interface IPrototype<T>
 
 public partial class Enemy : CharacterBody2D, IPrototype<Enemy>
 {
-	[Export] public float Speed = 100.0f;
+	[Export] public float Speed = 200.0f;
 	[Export] public int Health = 30;
 
 	private Node2D _target;
@@ -30,18 +30,20 @@ public partial class Enemy : CharacterBody2D, IPrototype<Enemy>
 
 	public void TakeDamage(int damage)
 	{
+		if (!Visible) return;
+
 		Health -= damage;
+		GD.Print($"Ворог отримав {damage} шкоди. Залишилось ХП: {Health}");
+
 		if (Health <= 0)
 		{
-			GameManager.Instance.AddScore(10);
-			QueueFree();
+			QueueFree(); 
 		}
 	}
 
 	// Реалізація патерну Прототип
 	public Enemy Clone()
 	{
-		// Duplicate() - вбудований метод Godot, який чудово працює як Prototype
 		return (Enemy)this.Duplicate(); 
 	}
 }

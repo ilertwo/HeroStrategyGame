@@ -1,0 +1,25 @@
+[gd_scene format=3 uid="uid://221o57n80y3o"]
+
+[ext_resource type="Script" uid="uid://dyweprprwmi7n" path="res://Scripts/Domain/Bullet.cs" id="1_14k46"]
+[ext_resource type="Texture2D" uid="uid://7cdjwg2it024" path="res://Assets/Sprites/Bullet.png" id="1_vlxeq"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_14k46"]
+radius = 6.0
+height = 12.0
+
+[node name="Bullet" type="Area2D" unique_id=167717636]
+collision_layer = 0
+collision_mask = 4
+script = ExtResource("1_14k46")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=702732416]
+position = Vector2(-1, 1)
+scale = Vector2(0.102127664, 0.09893618)
+texture = ExtResource("1_vlxeq")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1390313913]
+shape = SubResource("CapsuleShape2D_14k46")
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="." unique_id=79125591]
+position = Vector2(-1, 0)
+rect = Rect2(-7, -8, 15, 15)
