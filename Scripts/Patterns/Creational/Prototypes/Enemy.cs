@@ -37,6 +37,7 @@ public partial class Enemy : CharacterBody2D, IPrototype<Enemy>
 
 		if (Health <= 0)
 		{
+			GameManager.Instance.AddScore(10);
 			QueueFree(); 
 		}
 	}

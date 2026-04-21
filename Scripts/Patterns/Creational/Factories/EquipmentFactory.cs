@@ -24,7 +24,7 @@ public class MageRobe : IArmor
 
 public class HeavySword : IFactoryWeapon
 {
-	public void Attack() => GD.Print("Потужний удар важким мечем!");
+	public void Attack() => GD.Print("");
 }
 
 public class PlateArmor : IArmor 
@@ -32,7 +32,7 @@ public class PlateArmor : IArmor
 	public void Protect() => GD.Print("Сталева броня блокує фізичний удар!");
 }
 
-// 4. АБСТРАКТНА ФАБРИКА
+// АБСТРАКТНА ФАБРИКА
 public interface IEquipmentFactory 
 {
 	IFactoryWeapon CreateWeapon(); 

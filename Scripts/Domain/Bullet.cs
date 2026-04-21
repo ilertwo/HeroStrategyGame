@@ -32,7 +32,7 @@ public partial class Bullet : Area2D
 		{
 			GD.Print("Це ворог! Завдаємо шкоди.");
 			enemy.TakeDamage(Damage);
-			QueueFree(); // Знищуємо кулю
+			QueueFree();
 		}
 	}
 }

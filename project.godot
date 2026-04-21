@@ -14,6 +14,10 @@ config/name="HeroStrategyGame"
 run/main_scene="uid://dwjcxnvajx2yo"
 config/features=PackedStringArray("4.6", "C#")
 
+[autoload]
+
+GameManager="*uid://dtirjr7xybgxp"
+
 [dotnet]
 
 project/assembly_name="UnnamedProject"
