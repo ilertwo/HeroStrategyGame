@@ -61,25 +61,29 @@ public partial class Hero : CharacterBody2D
 	}
 
 	private void HandleShooting()
+{
+	Vector2 shootDir = Vector2.Zero;
+	if (Input.IsActionJustPressed("shoot_up")) shootDir = Vector2.Up;
+	else if (Input.IsActionJustPressed("shoot_down")) shootDir = Vector2.Down;
+	else if (Input.IsActionJustPressed("shoot_left")) shootDir = Vector2.Left;
+	else if (Input.IsActionJustPressed("shoot_right")) shootDir = Vector2.Right;
+
+	if (shootDir != Vector2.Zero)
 	{
-		Vector2 shootDir = Vector2.Zero;
-		if (Input.IsActionJustPressed("shoot_up")) shootDir = Vector2.Up;
-		if (Input.IsActionJustPressed("shoot_down")) shootDir = Vector2.Down;
-		if (Input.IsActionJustPressed("shoot_left")) shootDir = Vector2.Left;
-		if (Input.IsActionJustPressed("shoot_right")) shootDir = Vector2.Right;
+		_currentState = HeroState.Shooting;
 
-		if (shootDir != Vector2.Zero)
+		// Повертаємо героя в напрямку пострілу
+		// Angle() вирахує: Right=0, Down=PI/2, Left=PI, Up=-PI/2
+		Rotation = shootDir.Angle() - Mathf.Pi / 2;
+
+		_shootingLogic.Shoot(this, shootDir);
+
+		if (HasNode("AnimationPlayer"))
 		{
-			_currentState = HeroState.Shooting;
-			
-			_shootingLogic.Shoot(this, shootDir);
-
-			if (HasNode("AnimationPlayer"))
-			{
-				GetNode<AnimationPlayer>("AnimationPlayer").Play("shoot");
-			}
+			GetNode<AnimationPlayer>("AnimationPlayer").Play("shoot");
 		}
 	}
+}
 
 	public void UpgradeWeapon()
 	{
