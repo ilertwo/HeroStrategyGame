@@ -2,6 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://dkf7iidwa8k1d" path="res://Assets/Sprites/Hero.png" id="1_d235u"]
 [ext_resource type="Script" uid="uid://dvajo60r13f1l" path="res://Scripts/Domain/Hero.cs" id="1_nm5wh"]
+[ext_resource type="PackedScene" uid="uid://cv27kp0g316yl" path="res://Scenes/CompassPivot.tscn" id="3_ce415"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_nm5wh"]
 radius = 36.0
@@ -20,3 +21,6 @@ texture = ExtResource("1_d235u")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=40312464]
 position = Vector2(0.9999962, 1.1975174)
 shape = SubResource("CapsuleShape2D_nm5wh")
+
+[node name="CompassPivot" parent="." unique_id=1846879638 instance=ExtResource("3_ce415")]
+position = Vector2(4, 4)

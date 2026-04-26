@@ -6,6 +6,8 @@
 [ext_resource type="PackedScene" uid="uid://bshqxxbihtq1m" path="res://Scenes/UI/Wall.tscn" id="4_rgh2o"]
 [ext_resource type="PackedScene" uid="uid://dv77qi5qwc2xf" path="res://Scenes/Enemy.tscn" id="5_pbw6q"]
 [ext_resource type="Script" uid="uid://k2ccfaoywt4e" path="res://Scripts/Core/EnemySpawner.cs" id="6_v1gob"]
+[ext_resource type="Script" uid="uid://o7ry32q607so" path="res://Scripts/Core/LevelController.cs" id="7_50glp"]
+[ext_resource type="PackedScene" uid="uid://bltcaqjt0s4p0" path="res://Scenes/EvacuationGate.tscn" id="8_vy5pj"]
 
 [node name="Main" type="Node2D" unique_id=1692002326]
 
@@ -35,3 +37,7 @@ position = Vector2(-85, 56)
 [node name="Spawner" type="Node2D" parent="." unique_id=1390772905 node_paths=PackedStringArray("PrototypeEnemy")]
 script = ExtResource("6_v1gob")
 PrototypeEnemy = NodePath("../Enemy")
+
+[node name="LevelController" type="Node" parent="." unique_id=13952072]
+script = ExtResource("7_50glp")
+GateScene = ExtResource("8_vy5pj")

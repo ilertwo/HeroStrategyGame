@@ -1,0 +1,12 @@
+[gd_scene format=3 uid="uid://cv27kp0g316yl"]
+
+[ext_resource type="Script" uid="uid://bqdrxrhqd1b0q" path="res://Scripts/Domain/Pointer.cs" id="1_dvcrk"]
+[ext_resource type="Texture2D" uid="uid://dxgrrwlqfmd33" path="res://Assets/Sprites/Pointer.png" id="2_6h6p6"]
+
+[node name="CompassPivot" type="Node2D" unique_id=1846879638]
+
+[node name="Pointer" type="Sprite2D" parent="." unique_id=163440955]
+position = Vector2(60, 0)
+scale = Vector2(0.1106383, 0.10638297)
+texture = ExtResource("2_6h6p6")
+script = ExtResource("1_dvcrk")

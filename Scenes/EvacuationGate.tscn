@@ -1,0 +1,21 @@
+[gd_scene format=3 uid="uid://bltcaqjt0s4p0"]
+
+[ext_resource type="Texture2D" uid="uid://il5m61fkx5yy" path="res://Assets/Sprites/Gate.png" id="1_hw42e"]
+[ext_resource type="Script" uid="uid://b6aft34gik1m3" path="res://Scripts/Domain/EvacuationGate.cs" id="1_ujx68"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ujx68"]
+radius = 109.01835
+
+[node name="EvacuationGate" type="Area2D" unique_id=203041839]
+script = ExtResource("1_ujx68")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1276925021]
+position = Vector2(-0.9999695, 1.000061)
+scale = Vector2(0.6468085, 0.61702126)
+texture = ExtResource("1_hw42e")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=243838918]
+shape = SubResource("CircleShape2D_ujx68")
+
+[node name="HoldTimer" type="Timer" parent="." unique_id=373502929]
+wait_time = 3.0
