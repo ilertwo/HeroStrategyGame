@@ -19,6 +19,8 @@ public partial class EvacuationGate : Area2D
 		CurrentType = type;
 		_sprite = GetNode<Sprite2D>("Sprite2D");
 		_holdTimer = GetNode<Timer>("HoldTimer");
+		
+		_sprite.Scale = new Vector2(0.05f, 0.05f);
 
 		// Зміна кольору
 		switch (CurrentType)

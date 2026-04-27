@@ -15,15 +15,21 @@ public class BasicGun : IWeapon
 		_bulletScene = GD.Load<PackedScene>("res://Scenes/Bullet.tscn");
 	}
 
-	public void Shoot(Node2D startPoint, Vector2 direction)
+	public void Shoot(Node2D shooter, Vector2 direction)
 	{
-		if (_bulletScene.Instantiate() is Bullet bullet)
+		if (_bulletScene == null)
 		{
-			bullet.Direction = direction;
-			bullet.GlobalPosition = startPoint.GlobalPosition;
-			
-			startPoint.GetTree().Root.AddChild(bullet);
+			GD.Print("ПОМИЛКА: Сцена кулі не завантажена. Перевір шлях у конструкторі!");
+			return;
 		}
+
+		Bullet bullet = _bulletScene.Instantiate<Bullet>();
+
+		bullet.Direction = direction;
+		bullet.GlobalPosition = shooter.GlobalPosition;
+
+		shooter.GetParent().AddChild(bullet);
+		
 	}
 }
 

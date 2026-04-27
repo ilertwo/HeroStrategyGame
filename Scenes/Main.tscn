@@ -8,6 +8,12 @@
 [ext_resource type="Script" uid="uid://k2ccfaoywt4e" path="res://Scripts/Core/EnemySpawner.cs" id="6_v1gob"]
 [ext_resource type="Script" uid="uid://o7ry32q607so" path="res://Scripts/Core/LevelController.cs" id="7_50glp"]
 [ext_resource type="PackedScene" uid="uid://bltcaqjt0s4p0" path="res://Scenes/EvacuationGate.tscn" id="8_vy5pj"]
+[ext_resource type="FontFile" uid="uid://bwwe14212y2xc" path="res://Assets/Fonts/ZeroCool.ttf" id="9_bmxlf"]
+[ext_resource type="Script" uid="uid://c1frww7aueub0" path="res://Scripts/Domain/ScoreUI.cs" id="9_vy5pj"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_4kpch"]
+font = ExtResource("9_bmxlf")
+font_size = 23
 
 [node name="Main" type="Node2D" unique_id=1692002326]
 
@@ -20,8 +26,8 @@ offset_bottom = 440.0
 [node name="Arena" type="Sprite2D" parent="." unique_id=2125426438]
 light_mask = 512
 visibility_layer = 512
-position = Vector2(575.49994, 324.5)
-scale = Vector2(2.4531913, 1.380851)
+position = Vector2(576.00006, 359.00363)
+scale = Vector2(0.5698243, 0.35644183)
 texture = ExtResource("3_kln2b")
 
 [node name="Hero" parent="." unique_id=139375110 instance=ExtResource("2_kln2b")]
@@ -41,3 +47,16 @@ PrototypeEnemy = NodePath("../Enemy")
 [node name="LevelController" type="Node" parent="." unique_id=13952072]
 script = ExtResource("7_50glp")
 GateScene = ExtResource("8_vy5pj")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=953047475]
+
+[node name="ScoreUI" type="Label" parent="CanvasLayer" unique_id=1724956102]
+offset_left = 68.0
+offset_top = 34.0
+offset_right = 155.0
+offset_bottom = 67.0
+text = "Рахунок: 0"
+label_settings = SubResource("LabelSettings_4kpch")
+horizontal_alignment = 1
+vertical_alignment = 1
+script = ExtResource("9_vy5pj")

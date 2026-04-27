@@ -24,6 +24,8 @@ public partial class Enemy : CharacterBody2D, IPrototype<Enemy>
 		{
 			Vector2 direction = GlobalPosition.DirectionTo(_target.GlobalPosition);
 			Velocity = direction * Speed;
+			
+			LookAt(_target.GlobalPosition);
 			MoveAndSlide();
 		}
 	}
