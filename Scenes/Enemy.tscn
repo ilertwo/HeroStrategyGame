@@ -2,6 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://dofgeaafcm3ja" path="res://Assets/Sprites/Enemy.png" id="1_m1htj"]
 [ext_resource type="Script" uid="uid://c4bfkf07hcw0m" path="res://Scripts/Patterns/Creational/Prototypes/Enemy.cs" id="1_wovta"]
+[ext_resource type="Resource" uid="uid://oo4tdlu5u8rm" path="res://Scripts/Patterns/Structural/Flyweight/BasicEnemyStats.tres" id="2_xeo28"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_wovta"]
 radius = 41.109608
@@ -10,6 +11,7 @@ radius = 41.109608
 collision_layer = 4
 collision_mask = 7
 script = ExtResource("1_wovta")
+Stats = ExtResource("2_xeo28")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=935708352]
 position = Vector2(1, 2)

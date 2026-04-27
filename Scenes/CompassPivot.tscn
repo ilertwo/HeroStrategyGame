@@ -6,7 +6,7 @@
 [node name="CompassPivot" type="Node2D" unique_id=1846879638]
 
 [node name="Pointer" type="Sprite2D" parent="." unique_id=163440955]
-position = Vector2(60, 0)
-scale = Vector2(0.1106383, 0.10638297)
+position = Vector2(99, 5.9604645e-08)
+scale = Vector2(0.045553524, 0.061003987)
 texture = ExtResource("2_6h6p6")
 script = ExtResource("1_dvcrk")

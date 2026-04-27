@@ -3,23 +3,17 @@ using System;
 
 public partial class LevelController : Node
 {
-	[Export] public PackedScene GateScene; // Закинь сюди EvacuationGate.tscn в редакторі
-	private bool _gatesSpawned = false;
-	private int _targetScore = 50;
+	[Export] public PackedScene GateScene;
 
-	public override void _Process(double delta)
+	public void SpawnEvacuationGates()
 	{
-		if (!_gatesSpawned && GameManager.Instance.Score >= _targetScore)
+		if (GateScene == null)
 		{
-			SpawnEvacuationGates();
-			_gatesSpawned = true;
+			GD.PrintErr("ПОМИЛКА: Не додано GateScene в Інспекторі!");
+			return;
 		}
-	}
 
-	private void SpawnEvacuationGates()
-	{
-		GD.Print("Рахунок досягнуто! Ворота з'являються!");
-
+		GD.Print("LevelController: Ворота з'являються!");
 
 		Vector2[] spawnPositions = { new Vector2(500, 100), new Vector2(-500, 100), new Vector2(0, 500) };
 		EvacuationGate.GateType[] types = { 
@@ -31,7 +25,7 @@ public partial class LevelController : Node
 		for (int i = 0; i < 3; i++)
 		{
 			EvacuationGate newGate = GateScene.Instantiate<EvacuationGate>();
-			GetParent().AddChild(newGate);
+			GetTree().CurrentScene.AddChild(newGate);
 			newGate.GlobalPosition = spawnPositions[i];
 			
 			newGate.Setup(types[i]);

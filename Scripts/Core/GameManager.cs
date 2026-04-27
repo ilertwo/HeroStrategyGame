@@ -8,7 +8,11 @@ public partial class GameManager : Node
 	
 	[Signal] public delegate void ScoreChangedEventHandler(int newScore);
 
+	public LevelFacade CurrentLevelFacade { get; set; }
+
 	public int Score { get; private set; } = 0;
+	private int _targetScore = 50; 
+	private bool _evacuationStarted = false;
 
 	public override void _Ready()
 	{
@@ -25,5 +29,19 @@ public partial class GameManager : Node
 		Score += amount;
 		GD.Print($"Рахунок: {Score}");
 		EmitSignal(SignalName.ScoreChanged, Score);
+
+		if (Score >= _targetScore && !_evacuationStarted)
+		{
+			_evacuationStarted = true;
+			
+			if (CurrentLevelFacade != null)
+			{
+				CurrentLevelFacade.TriggerEvacuationPhase();
+			}
+			else
+			{
+				GD.PrintErr("GameManager: Фасад не зареєстровано!");
+			}
+		}
 	}
 }

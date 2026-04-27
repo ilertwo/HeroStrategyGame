@@ -10,6 +10,7 @@
 [ext_resource type="PackedScene" uid="uid://bltcaqjt0s4p0" path="res://Scenes/EvacuationGate.tscn" id="8_vy5pj"]
 [ext_resource type="FontFile" uid="uid://bwwe14212y2xc" path="res://Assets/Fonts/ZeroCool.ttf" id="9_bmxlf"]
 [ext_resource type="Script" uid="uid://c1frww7aueub0" path="res://Scripts/Domain/ScoreUI.cs" id="9_vy5pj"]
+[ext_resource type="Script" uid="uid://b58gwftmmyxma" path="res://Scripts/Patterns/Structural/Facade/LevelFacade.cs" id="11_grg3l"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_4kpch"]
 font = ExtResource("9_bmxlf")
@@ -60,3 +61,7 @@ label_settings = SubResource("LabelSettings_4kpch")
 horizontal_alignment = 1
 vertical_alignment = 1
 script = ExtResource("9_vy5pj")
+
+[node name="LevelFacade" type="Node" parent="." unique_id=1771047952 node_paths=PackedStringArray("_levelController")]
+script = ExtResource("11_grg3l")
+_levelController = NodePath("../LevelController")
