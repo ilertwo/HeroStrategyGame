@@ -9,6 +9,8 @@ public partial class EnemySpawner : Node2D
 	[Export] public float MaxX = 1100.0f; 
 	[Export] public float MinY = 50.0f;
 	[Export] public float MaxY = 600.0f;
+	[Export] public bool IsSquadMode = false;
+	[Export] public int UnitsCount = 4;
 
 	[ExportGroup("Налаштування часу")]
 	[Export] public float SpawnInterval = 2.0f; 
@@ -29,18 +31,34 @@ public partial class EnemySpawner : Node2D
 	}
 
 	private void SpawnEnemyAtRandomPosition()
+{
+	Vector2 centerPos = new Vector2((float)GD.RandRange(MinX, MaxX), (float)GD.RandRange(MinY, MaxY));
+
+	bool shouldSpawnSquad = IsSquadMode && GD.Randf() > 0.6f; 
+
+	if (shouldSpawnSquad)
 	{
-		float randomX = (float)GD.RandRange(MinX, MaxX);
-		float randomY = (float)GD.RandRange(MinY, MaxY);
-		Vector2 randomPosition = new Vector2(randomX, randomY);
-
-		Enemy newEnemy = PrototypeEnemy.Clone();
-		
-		newEnemy.Visible = true; 
-
-		newEnemy.GlobalPosition = randomPosition;
-		GetParent().AddChild(newEnemy);
-		
-		GD.Print($"Заспавнено клона на позиції: {randomPosition}");
+		EnemySquad squad = new EnemySquad();
+		for (int i = 0; i < UnitsCount; i++)
+		{
+			Enemy unit = PrototypeEnemy.Clone();
+			unit.Visible = true;
+			Vector2 offset = new Vector2((float)GD.RandRange(-40, 40), (float)GD.RandRange(-40, 40));
+			unit.GlobalPosition = centerPos + offset;
+			unit.Modulate = new Color(1, 0.5f, 0.5f);
+			unit.Scale = new Vector2(0.7f, 0.7f);
+			GetParent().AddChild(unit);
+			squad.AddUnit(unit);
+		}
+		GD.Print($"Група заспавнена у позиції {centerPos}");
 	}
+	else
+	{
+		Enemy newEnemy = PrototypeEnemy.Clone();
+		newEnemy.Visible = true;
+		newEnemy.GlobalPosition = centerPos;
+		GetParent().AddChild(newEnemy);
+		GD.Print($"Одиночний ворог заспавнений у позиції {centerPos}");
+	}
+}
 }
