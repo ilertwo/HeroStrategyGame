@@ -5,7 +5,7 @@
 [ext_resource type="Resource" uid="uid://oo4tdlu5u8rm" path="res://Scripts/Patterns/Structural/Flyweight/BasicEnemyStats.tres" id="2_xeo28"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_wovta"]
-radius = 41.109608
+radius = 39.115215
 
 [node name="Enemy" type="CharacterBody2D" unique_id=944012939]
 collision_layer = 4
@@ -19,4 +19,5 @@ scale = Vector2(0.27340427, 0.27978724)
 texture = ExtResource("1_m1htj")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1611988059]
+position = Vector2(-21, 11)
 shape = SubResource("CircleShape2D_wovta")

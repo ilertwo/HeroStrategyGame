@@ -15,6 +15,10 @@ public partial class EnemySpawner : Node2D
 	
 	private double _timePassed = 0;
 
+	private EnemySquad _recruitingSquad = new EnemySquad();
+	private int _recruitedCount = 0; 
+	private Vector2 _rallyPoint;
+
 	public override void _Process(double delta)
 	{
 		if (PrototypeEnemy == null) return;
@@ -35,12 +39,43 @@ public partial class EnemySpawner : Node2D
 		Vector2 randomPosition = new Vector2(randomX, randomY);
 
 		Enemy newEnemy = PrototypeEnemy.Clone();
-		
 		newEnemy.Visible = true; 
-
 		newEnemy.GlobalPosition = randomPosition;
 		GetParent().AddChild(newEnemy);
-		
-		GD.Print($"Заспавнено клона на позиції: {randomPosition}");
+
+		if (GD.Randf() <= 0.3f)
+		{
+			if (_recruitedCount == 0)
+			{
+				float rallyX = (float)GD.RandRange(MinX, MaxX);
+				float rallyY = (float)GD.RandRange(MinY, MaxY);
+				_rallyPoint = new Vector2(rallyX, rallyY);
+				GD.Print($"[Командир] Визначено нову точку збору: {_rallyPoint}");
+			}
+
+			_recruitingSquad.AddUnit(newEnemy);
+			_recruitedCount++;
+			
+			newEnemy.MoveTowards(_rallyPoint);
+			GD.Print($"[Вербування] Ворог біжить на точку збору! В загоні: {_recruitedCount}/4");
+
+			if (_recruitedCount >= 4)
+			{
+				GD.Print(">>> КОМАНДИР: Загін зібрано! СПІЛЬНА АТАКА!");
+				
+				Node2D player = GetTree().GetFirstNodeInGroup("Player") as Node2D;
+				if (player != null)
+				{
+					_recruitingSquad.MoveTowards(player.GlobalPosition);
+				}
+
+				_recruitingSquad = new EnemySquad();
+				_recruitedCount = 0;
+			}
+		}
+		else
+		{
+			GD.Print($"[Одиночка] Заспавнено на {randomPosition}. Атакує сам.");
+		}
 	}
 }
