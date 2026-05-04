@@ -35,34 +35,42 @@ public partial class EnemySpawner : Node2D
 	}
 
 	private void SpawnEnemyAtRandomPosition()
-{
-	Vector2 centerPos = new Vector2((float)GD.RandRange(MinX, MaxX), (float)GD.RandRange(MinY, MaxY));
-
-	bool shouldSpawnSquad = IsSquadMode && GD.Randf() > 0.6f; 
-
-	if (shouldSpawnSquad)
 	{
-		EnemySquad squad = new EnemySquad();
-		for (int i = 0; i < UnitsCount; i++)
+		Vector2 centerPos = new Vector2((float)GD.RandRange(MinX, MaxX), (float)GD.RandRange(MinY, MaxY));
+
+		bool shouldSpawnSquad = IsSquadMode && GD.Randf() > 0.6f; 
+
+		if (shouldSpawnSquad)
 		{
-			Enemy unit = PrototypeEnemy.Clone();
-			unit.Visible = true;
-			Vector2 offset = new Vector2((float)GD.RandRange(-40, 40), (float)GD.RandRange(-40, 40));
-			unit.GlobalPosition = centerPos + offset;
-			unit.Modulate = new Color(1, 0.5f, 0.5f);
-			unit.Scale = new Vector2(0.7f, 0.7f);
-			GetParent().AddChild(unit);
-			squad.AddUnit(unit);
+			EnemySquad squad = new EnemySquad();
+			for (int i = 0; i < UnitsCount; i++)
+			{
+				Enemy unit = PrototypeEnemy.Clone();
+				unit.Visible = true;
+				Vector2 offset = new Vector2((float)GD.RandRange(-40, 40), (float)GD.RandRange(-40, 40));
+				unit.GlobalPosition = centerPos + offset;
+				unit.Modulate = new Color(1, 0.5f, 0.5f);
+				unit.Scale = new Vector2(0.7f, 0.7f);
+				GetParent().AddChild(unit);
+				
+				// +++ Підписуємо GameManager на смерть юніта із загону +++
+				unit.OnDied += GameManager.Instance.AddScore;
+				
+				squad.AddUnit(unit);
+			}
+			GD.Print($"Група заспавнена у позиції {centerPos}");
 		}
-		GD.Print($"Група заспавнена у позиції {centerPos}");
-	}
-	else
-	{
-		Enemy newEnemy = PrototypeEnemy.Clone();
-
-		newEnemy.Visible = true;
-		newEnemy.GlobalPosition = centerPos;
-		GetParent().AddChild(newEnemy);
-		GD.Print($"Одиночний ворог заспавнений у позиції {centerPos}");
+		else
+		{
+			Enemy newEnemy = PrototypeEnemy.Clone();
+			newEnemy.Visible = true;
+			newEnemy.GlobalPosition = centerPos;
+			GetParent().AddChild(newEnemy);
+			
+			// +++ Підписуємо GameManager на смерть одиночки +++
+			newEnemy.OnDied += GameManager.Instance.AddScore;
+			
+			GD.Print($"Одиночний ворог заспавнений у позиції {centerPos}");
+		}
 	}
 }
