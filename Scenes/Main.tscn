@@ -44,6 +44,7 @@ position = Vector2(-85, 56)
 [node name="Spawner" type="Node2D" parent="." unique_id=1390772905 node_paths=PackedStringArray("PrototypeEnemy")]
 script = ExtResource("6_v1gob")
 PrototypeEnemy = NodePath("../Enemy")
+IsSquadMode = true
 
 [node name="LevelController" type="Node" parent="." unique_id=13952072]
 script = ExtResource("7_50glp")
