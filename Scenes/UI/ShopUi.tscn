@@ -1,0 +1,47 @@
+[gd_scene format=3 uid="uid://575jxxun3yn1"]
+
+[ext_resource type="Script" uid="uid://c1j8qfx3iycrk" path="res://Scripts/UI/ShopUI.cs" id="1_klfp3"]
+
+[node name="Control" type="Control" unique_id=420030724]
+process_mode = 3
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+scale = Vector2(28, 7.4000006)
+script = ExtResource("1_klfp3")
+
+[node name="Button" type="Button" parent="." unique_id=85033074]
+layout_mode = 0
+offset_right = 8.0
+offset_bottom = 8.0
+
+[node name="Button2" type="Button" parent="." unique_id=520377389]
+layout_mode = 0
+offset_left = 16.0
+offset_right = 24.0
+offset_bottom = 8.0
+
+[node name="Button3" type="Button" parent="." unique_id=2016773618]
+layout_mode = 0
+offset_left = 8.0
+offset_right = 16.0
+offset_bottom = 8.0
+
+[node name="Button4" type="Button" parent="." unique_id=2099955926]
+layout_mode = 0
+offset_left = 32.0
+offset_right = 40.0
+offset_bottom = 8.0
+
+[node name="Button5" type="Button" parent="." unique_id=1666251138]
+layout_mode = 0
+offset_left = 24.0
+offset_right = 32.0
+offset_bottom = 8.0
+
+[connection signal="pressed" from="Button" to="." method="OnBuySniperPressed"]
+[connection signal="pressed" from="Button2" to="." method="OnBuySMGPressed"]
+[connection signal="pressed" from="Button3" to="." method="OnBuyPoisonPressed"]
+[connection signal="pressed" from="Button4" to="." method="OnBuyHeavyBulletPressed"]
+[connection signal="pressed" from="Button5" to="." method="OnBuySpreadShotPressed"]

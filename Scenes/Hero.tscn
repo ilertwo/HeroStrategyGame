@@ -3,6 +3,8 @@
 [ext_resource type="Texture2D" uid="uid://dkf7iidwa8k1d" path="res://Assets/Sprites/Hero.png" id="1_d235u"]
 [ext_resource type="Script" uid="uid://dvajo60r13f1l" path="res://Scripts/Domain/Hero.cs" id="1_nm5wh"]
 [ext_resource type="PackedScene" uid="uid://cv27kp0g316yl" path="res://Scenes/CompassPivot.tscn" id="3_ce415"]
+[ext_resource type="Texture2D" uid="uid://ohvke8olydfk" path="res://Assets/Arena.png" id="4_o40e8"]
+[ext_resource type="Script" uid="uid://tg2sc6yhffsc" path="res://Scripts/UI/InfiniteMap.cs" id="5_63mf6"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_nm5wh"]
 radius = 36.0
@@ -25,3 +27,13 @@ shape = SubResource("CapsuleShape2D_nm5wh")
 [node name="CompassPivot" parent="." unique_id=1846879638 instance=ExtResource("3_ce415")]
 position = Vector2(4, 4)
 scale = Vector2(0.3, 0.3)
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=920548782]
+
+[node name="InfiniteMap" type="Sprite2D" parent="." unique_id=2143983485]
+z_index = -100
+texture_repeat = 2
+texture = ExtResource("4_o40e8")
+region_enabled = true
+region_rect = Rect2(0, 0, 3000, 3000)
+script = ExtResource("5_63mf6")

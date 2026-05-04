@@ -1,7 +1,7 @@
 using Godot;
 using System;
 
-// === ПАТЕРН КОМАНДА (Command) ===
+// ПАТЕРН КОМАНДА 
 public interface ICommand
 {
 	void Execute();
@@ -30,7 +30,7 @@ public class ShootCommand : ICommand
 	}
 }
 
-// === ПАТЕРН СТАН (State) ===
+// ПАТЕРН СТАН
 public interface IHeroState
 {
 	IHeroState HandleInput(Hero hero);
@@ -79,9 +79,8 @@ public partial class Hero : CharacterBody2D
 
 	private IFactoryWeapon _equippedWeapon; 
 	private IArmor _equippedArmor;          
-	public IWeapon ShootingLogic; // Зроблено public для доступу з команди
+	public IWeapon ShootingLogic;
 
-	// Поточний стан
 	private IHeroState _currentState = new IdleState();
 
 	public override void _Ready()
@@ -90,19 +89,31 @@ public partial class Hero : CharacterBody2D
 		IEquipmentFactory developmentBranch = new MagicDevelopmentFactory(); 
 		_equippedWeapon = developmentBranch.CreateWeapon();
 		_equippedArmor = developmentBranch.CreateArmor();
-		ShootingLogic = new BasicGun();
+		ShootingLogic = new Pistol();
 	}
 
 	public override void _PhysicsProcess(double delta)
 	{
-		// 1. Делегуємо рух поточному стану
 		IHeroState nextState = _currentState.HandleInput(this);
 		if (nextState != _currentState) _currentState = nextState;
 		
 		_currentState.UpdateState(this, delta);
 
-		// 2. Обробляємо постріл через Команду
 		HandleShooting();
+	}
+	
+	public void TakeDamage(int damage)
+	{
+		Health -= damage;
+		GD.Print($"Герой отримав {damage} шкоди! Залишилось ХП: {Health}");
+
+		Modulate = new Color(1, 0, 0); 
+		GetTree().CreateTimer(0.1f).Timeout += () => Modulate = new Color(1, 1, 1);
+
+		if (Health <= 0)
+		{
+			GD.Print("ГЕРОЙ ВМЕР!");
+		}
 	}
 
 	private void HandleShooting()
@@ -117,15 +128,15 @@ public partial class Hero : CharacterBody2D
 		{
 			Rotation = shootDir.Angle() - Mathf.Pi / 2;
 			
-			// Використовуємо патерн Команда
+			// патерн Команда
 			ICommand shootAction = new ShootCommand(this, ShootingLogic, shootDir);
 			shootAction.Execute();
 		}
 	}
 
 	public void UpgradeWeapon()
-	{
-		ShootingLogic = new FireBulletDecorator(ShootingLogic);
-		GD.Print("Зброю покращено: тепер кулі вогняні!");
-	}
+{
+	ShootingLogic = new PoisonPassive(ShootingLogic);
+	GD.Print("Зброю покращено: тепер кулі отруйні!");
+}
 }

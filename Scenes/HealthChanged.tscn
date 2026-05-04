@@ -1,0 +1,15 @@
+[gd_scene format=3 uid="uid://lhac6ma0nda5"]
+
+[ext_resource type="Script" uid="uid://s3c7m1437ous" path="res://Scripts/UI/HeroStatsController.cs" id="1_8xu3o"]
+
+[node name="Control" type="Control" unique_id=350999699]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("1_8xu3o")
+
+[node name="Label" type="Label" parent="." unique_id=1782597715]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0

@@ -1,0 +1,13 @@
+[gd_scene format=3 uid="uid://blcq85xxfh5bv"]
+
+[ext_resource type="Script" uid="uid://tg2sc6yhffsc" path="res://Scripts/UI/InfiniteMap.cs" id="1_ppds5"]
+[ext_resource type="Texture2D" uid="uid://ohvke8olydfk" path="res://Assets/Arena.png" id="2_ypvkc"]
+
+[node name="Chunk" type="Node" unique_id=678246435]
+script = ExtResource("1_ppds5")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1301287725]
+position = Vector2(575, 240)
+texture = ExtResource("2_ypvkc")
+region_enabled = true
+region_rect = Rect2(0, 0, 1000, 1000)

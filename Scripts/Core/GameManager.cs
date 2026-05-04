@@ -43,5 +43,11 @@ public partial class GameManager : Node
 				GD.PrintErr("GameManager: Фасад не зареєстровано!");
 			}
 		}
+		}
+	public void SpendScore(int amount)
+	{
+		Score -= amount;
+		GD.Print($"Витрачено {amount} балів. Залишок: {Score}");
+		EmitSignal(SignalName.ScoreChanged, Score);
 	}
 }
